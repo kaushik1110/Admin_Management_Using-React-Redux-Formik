@@ -2,15 +2,29 @@ import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { Form, Field } from "formik";
+import { toast, ToastContainer } from "react-toastify";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import FormikControl from "../Common/FormikControl";
 
 function Login() {
+  var data = {
+    email: "kaushik@gmail.com",
+    password:"123",
+  }
   const initialValues = {
     email: "",
     password: "",
   };
+  const onSubmit = (value) => {
+    // if () {
+      
+    // }
+    // else{
+    //   toast.error("Enter valid Email and Password", {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    }
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format").required("Required !"),
     password: Yup.string()
@@ -25,21 +39,23 @@ function Login() {
   });
 
   return (
+    <div>
+      <ToastContainer />
     <Formik initialValues={initialValues} validationSchema={validationSchema}>
       {(formik) => (
         <Form className="container formset  border border-light p-5">
-          <p className="h4 mb-4 text-center">Sign in</p>
+          <p className="h4 mb-0 text-center">Sign in</p>
           <FormikControl
             control="input"
-            placeholder="E-mail"
-            className="form-control mb-3"
-            name="Email"
+            placeholder="Email"
+            className="form-control"
+            name="email"
           />
           <FormikControl
             control="input"
             placeholder="Password"
-            className="form-control mb-3"
-            name="checkBoxOption"
+            className="form-control mt--15 inputsett"
+            name="password"
           />
           {/* <div>
           
@@ -76,21 +92,23 @@ function Login() {
         </div> */}
 
           <button
-            className="btn btn-info btn-block  fontset my-3"
+            className="btn btn-info btn-block  fontset my-4"
             type="submit"
+            onSubmit={(event) => onSubmit(event)}
           >
             Sign in
           </button>
 
           <p className="fontsett text-center">
             Not a member?
-            <Link className="ml-2" to="/singup">
+            <Link className="ml-2" to="/home">
               Singup
             </Link>
           </p>
         </Form>
       )}
     </Formik>
+    </div>
   );
 }
 

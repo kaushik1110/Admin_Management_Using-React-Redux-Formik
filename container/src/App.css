@@ -8,11 +8,20 @@
 .fontsett{
   font-weight: 600;
 }
+.inputsett{
+  margin-top: -15px;
+}
+.btset{
+  color: white;
+  font-weight: 500;
+}
+.regisformset{
+  margin-top: 25px;
+  width: 900px;
+}
 /* .App {
   text-align: center;
 } */
-
-
 
 .App-logo {
   height: 40vmin;
