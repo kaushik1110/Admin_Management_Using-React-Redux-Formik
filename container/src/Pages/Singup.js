@@ -7,14 +7,14 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import FormikControl from "../Common/FormikControl";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import ShowData from "./ShowData";
 
 const Singup = (props) => {
-    const dispatch = useDispatch();
-    const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const initialValues = {
-    name:"",
+    name: "",
     email: "",
     address: "",
     birthDate: "",
@@ -22,34 +22,50 @@ const Singup = (props) => {
     hobbyOption: "",
   };
 
-  const onSubmit = (value) => {
-    debugger
-    props.dispatch(addTodo(value));
-    console.log(value);
-    
+  const onSubmit = (value,{ resetForm }) => {
+    // 
+    const data = {
+       id: Math.floor(Math.random()*10000),
+      name: value.name,
+      address: value.address,
+      birthDate: value.birthDate,
+      email: value.email,
+      genderOption: value.genderOption,
+      hobbyOption: value.hobbyOption,
+    };
+    props.dispatch(addTodo(data));
+    resetForm({value:''});
+
+    // history.push({
+    //   pathname: "/home",
+    // });
   };
   const validationSchema = Yup.object({
     name: Yup.string().required("Required !"),
     email: Yup.string().email("Invalid email format").required("Required !"),
-    address: Yup.string().required('Required !'),
-    birthDate: Yup.date().required('Required !').nullable(),
-    genderOption: Yup.string().required('Required !'),
-    hobbyOption: Yup.array().required('Required !'),
+    address: Yup.string().required("Required !"),
+    birthDate: Yup.date().required("Required !").nullable(),
+    genderOption: Yup.string().required("Required !"),
+    hobbyOption: Yup.array().required("Required !"),
   });
   const genderOptions = [
-    { key: 'Male', value: 'Male' },
-    { key: 'Female', value: 'Female' },
-    { key: 'Other', value: 'Other' },
-]
-const checkBoxOptions = [
-    { key: 'Cricket', value: 'Cricket' },
-    { key: 'Singing', value: 'Singing' },
-    { key: 'Driving', value: 'Driving' },
-]
+    { key: "Male", value: "Male" },
+    { key: "Female", value: "Female" },
+    { key: "Other", value: "Other" },
+  ];
+  const checkBoxOptions = [
+    { key: "Cricket", value: "Cricket" },
+    { key: "Singing", value: "Singing" },
+    { key: "Driving", value: "Driving" },
+  ];
   return (
     <div>
       <ToastContainer />
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
         {(formik) => (
           <div className="">
             <Form className="container regisformset  border border-light p-5">
@@ -109,18 +125,17 @@ const checkBoxOptions = [
               >
                 Sign Up
               </button>
-
             </Form>
           </div>
         )}
       </Formik>
-      <ShowData/>
+      <ShowData />
     </div>
   );
-}
+};
 const mapStateToProps = (state) => {
-    return {
-      data: state.Reducer.data,
-    };
+  return {
+    data: state.Reducer.data,
   };
+};
 export default connect(mapStateToProps)(Singup);

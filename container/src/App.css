@@ -15,6 +15,10 @@
   color: white;
   font-weight: 500;
 }
+.btnsett{
+  justify-content: center;
+  display: flex;
+}
 .regisformset{
   margin-top: 25px;
   width: 900px;

@@ -1,12 +1,13 @@
 const initialState = {
     data: [
       {
+        id:1234,
         name: "kaushik",
-        email: 21,
-        address: "manager",
-        birthDate: "3",
+        email: "k@gmail.com",
+        address: "surat",
+        birthDate: "03/10/1999",
         genderOption:"male",
-        hobbyOption:"option1"
+        hobbyOption:"dancing"
       },
       // {
       //   name: "vmn",
@@ -21,23 +22,29 @@ const initialState = {
     
     switch (action.type) {
       case "ADD_TODO":
-        debugger
+        
         return {
+          
           data: [
             ...state.data,
-            {
-              data: action.data,
-              id: action.id,
-            },
+            action.data,
+            // action.id,
           ],
-          
           // localStorage.setItem('data',JSON.stringify(data)),
+          // {console.log(data)}
         };
-      case "DELETE_TODO":
+        case "DELETE_TODO":
         const Reducer = state.data.filter((todo) => todo.id !== action.id);
         return {
           ...state,
           data: Reducer,
+        };
+        case "UPDATE_TODO":
+        const Reducer2 = state.data.filter((todo) => todo.id === action.id);
+        console.log(Reducer2);
+        return {
+          ...state,
+          // data: Reducer,
         };
       default:
         return state;

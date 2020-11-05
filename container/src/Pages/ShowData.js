@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTodo } from "../Action/Action";
+import { deleteTodo, updateTodo } from "../Action/Action";
 import moment from "moment";
 const ShowData = (props) => {
-  debugger
   return (
     <>
       
@@ -12,7 +11,7 @@ const ShowData = (props) => {
         <table className="table table-bordered">
           <thead>
             <tr className="fntsize">
-              <th scope="col">Name</th>
+              <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Address</th>
@@ -22,25 +21,31 @@ const ShowData = (props) => {
               <th scope="col">Action</th>
             </tr>
           </thead>
-          {props.Singup.map((data, index) => (
+          {props.Singup.map((todo, index) => (
               
               <>
               
                 <tbody >
                   <tr className="textstyle" key={index}>
+                    <th>{todo.id}</th>
                     <th>{todo.name}</th>
-                    {/* <th>{props.data.id}</th> */}
                     <th>{todo.email}</th>
                     <th>{todo.address}</th>
                     <th>{moment(todo.birthDate).format('L')}</th>
                     <th>{todo.genderOption}</th>
                     <th>{todo.hobbyOption}</th>
-                    <th>
+                    <th className="btnsett">
                       <button
                         className="btn btn-info btn-md"
                         onClick={() => props.dispatch(deleteTodo(todo.id))}
                         >
                         Delete
+                      </button>
+                      <button
+                        className="btn btn-info btn-md"
+                        onClick={() => props.dispatch(updateTodo(todo.id))}
+                        >
+                        Update
                       </button>
                     </th>
                   </tr>
