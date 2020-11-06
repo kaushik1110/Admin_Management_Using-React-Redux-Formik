@@ -26,10 +26,6 @@ const CheckBoxGroup = (props) => {
                       field.value.includes(option.value)
                     }
                   />
-                  {console.log(
-                    "field.value.includes(option.value)",
-                    field.value.includes(option.value)
-                  )}
                   <label>{option.key}</label>
                 </div>
               );

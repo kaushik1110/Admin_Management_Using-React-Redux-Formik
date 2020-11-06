@@ -5,7 +5,6 @@ import TextError from "../Common/TextError";
 
 const Input = (props) => {
   const { label, name, value, ...rest } = props;
-  console.log("value", value);
   return (
     <div className="textset inputbox form-group ">
       <label className="sizetext">{label}</label>

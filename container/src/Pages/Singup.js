@@ -1,14 +1,15 @@
 import React from "react";
 import { Form } from "formik";
 import { Formik } from "formik";
-import { addTodo } from "../Action/Action";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import * as Yup from "yup";
-import FormikControl from "../Common/FormikControl";
-import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+
+import { addTodo } from "../Action/Action";
+import FormikControl from "../Common/FormikControl";
 
 const Singup = (props) => {
   const dispatch = useDispatch();
@@ -56,14 +57,7 @@ const Singup = (props) => {
     }, 2000);
     
   };
-  // debugger
-  // console.log("Reducer starting", Reducer.state);
-  // console.log("Reducer starting 0", Reducer.state[0]);
-  // {
-  //   Reducer &&
-  //     Reducer.state.length !== 0 &&
-  //     console.log("ccc", Reducer.state[0].name);
-  // }
+  
   const validationSchema = Yup.object({
     name: Yup.string().required("Required !"),
     email: Yup.string().email("Invalid email format").required("Required !"),
@@ -92,7 +86,7 @@ const Singup = (props) => {
       >
         {(formik) => (
           <div className="">
-            {console.log("formik", formik)}
+            {/* {console.log("formik", formik)}  *important* */}
             <Form className="container regisformset  border border-light p-5">
               <p className="h4 mb-0 text-center">Sign Up</p>
 

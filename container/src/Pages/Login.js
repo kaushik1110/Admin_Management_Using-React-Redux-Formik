@@ -1,13 +1,14 @@
 import React from "react";
-import "../App.css";
-import { Link } from "react-router-dom";
-import { Form, Field } from "formik";
-import { toast, ToastContainer } from "react-toastify";
-import { Formik, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import FormikControl from "../Common/FormikControl";
+
+import { Form } from "formik";
 import { useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import "react-toastify/dist/ReactToastify.css";
+
+import FormikControl from "../Common/FormikControl";
+import "../App.css";
 
 function Login() {
   const history = useHistory();
@@ -19,18 +20,13 @@ function Login() {
     email: "",
     password: "",
   };
-  
+
   const onSubmit = (value) => {
-    console.log("submit email", value.email);
-    console.log("apdi email", data.email);
-    console.log("submit pas", value.password);
-    console.log("apdo pas", data.password);
     if (value.email === data.email && value.password === data.password) {
       toast.success("Login Successfull", {
         position: toast.POSITION.TOP_RIGHT,
-        
       });
-      localStorage.setItem('token', JSON.stringify(data))
+      localStorage.setItem("token", JSON.stringify(data));
       setTimeout(() => {
         history.push({
           pathname: "/home",
@@ -88,7 +84,6 @@ function Login() {
             >
               Sign in
             </button>
-           
           </Form>
         )}
       </Formik>
