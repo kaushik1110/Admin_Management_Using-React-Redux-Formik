@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "formik";
-import { ToastContainer } from "react-toastify";
 import { Formik } from "formik";
 import { addTodo } from "../Action/Action";
 import { useHistory } from "react-router-dom";
@@ -8,7 +7,7 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 import FormikControl from "../Common/FormikControl";
 import { useDispatch, useSelector } from "react-redux";
-import ShowData from "./ShowData";
+import { toast, ToastContainer } from "react-toastify";
 import moment from "moment";
 
 const Singup = (props) => {
@@ -46,9 +45,16 @@ const Singup = (props) => {
 
     props.dispatch(addTodo(data));
     resetForm({ value: "" });
-    // history.push({
-    //   pathname: "/home",
-    // });
+    toast.success("Login Successfull", {
+      position: toast.POSITION.TOP_RIGHT,
+      
+    });
+    setTimeout(() => {
+      history.push({
+      pathname: "/showdata",
+    });
+    }, 2000);
+    
   };
   // debugger
   // console.log("Reducer starting", Reducer.state);
@@ -249,7 +255,6 @@ const Singup = (props) => {
           </div>
         )}
       </Formik>
-      <ShowData />
     </div>
   );
 };

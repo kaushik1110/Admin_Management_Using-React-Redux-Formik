@@ -23,9 +23,9 @@
   margin-top: 25px;
   width: 900px;
 }
-/* .App {
-  text-align: center;
-} */
+.setAdduser{
+  display: flex;
+}
 
 .App-logo {
   height: 40vmin;
