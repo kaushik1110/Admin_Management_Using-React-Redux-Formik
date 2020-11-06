@@ -31,7 +31,7 @@ const ShowData = (props) => {
                     <th>{todo.name}</th>
                     <th>{todo.email}</th>
                     <th>{todo.address}</th>
-                    <th>{moment(todo.birthDate).format('L')}</th>
+                    <th>{todo.birthDate}</th>
                     <th>{todo.genderOption}</th>
                     <th>{todo.hobbyOption}</th>
                     <th className="btnsett">

@@ -6,27 +6,37 @@ import TextError from "../Common/TextError";
 const CheckBoxGroup = (props) => {
   const { label, name, options, ...rest } = props;
   return (
-    <div className='textset'>
+    <div className="textset">
       <label className="sizetext">{label}</label>
       <div>
-      <Field name={name} {...rest}>
-        {({ field }) => {
-          return options.map((option) => {
-            return (
-              <div key={option.value}>
-                <input
-                  type="checkbox"
-                  {...field}
-                  value={option.value}
-                  checked={field.value.includes(option.value)}
-                />
-                <label>{option.key}</label>
-              </div>
-            );
-          });
-        }}
-      </Field>
-      <ErrorMessage name={name} component={TextError} />
+        <Field name={name} {...rest}>
+          {({ field }) => {
+            return options.map((option) => {
+              return (
+                <div key={option.value}>
+                  <input
+                    type="checkbox"
+                    {...field}
+                    value={option.value}
+                    // checked={field.value.includes(option.value)}
+                    checked={
+                      option.value === rest.value[0] ||
+                      option.value === rest.value[1] ||
+                      option.value === rest.value[2] ||
+                      field.value.includes(option.value)
+                    }
+                  />
+                  {console.log(
+                    "field.value.includes(option.value)",
+                    field.value.includes(option.value)
+                  )}
+                  <label>{option.key}</label>
+                </div>
+              );
+            });
+          }}
+        </Field>
+        <ErrorMessage name={name} component={TextError} />
       </div>
     </div>
   );

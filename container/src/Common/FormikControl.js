@@ -23,8 +23,6 @@ const FormikControl = (props) => {
             return <CheckBoxGroup {...rest} />
         case 'date':
             return <DatePiker {...rest} />
-        // case 'chakrainput':
-        //     return <ChakraInput {...rest} />
         default: return null
     }
 }

@@ -7,8 +7,9 @@ import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import FormikControl from "../Common/FormikControl";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ShowData from "./ShowData";
+import moment from "moment";
 
 const Singup = (props) => {
   const dispatch = useDispatch();
@@ -21,25 +22,42 @@ const Singup = (props) => {
     genderOption: "",
     hobbyOption: "",
   };
+  const Reducer = useSelector((state) => {
+    return {
+      state: state.Reducer.Update,
+    };
+  });
 
-  const onSubmit = (value,{ resetForm }) => {
-    // 
+  const onSubmit = (value, { resetForm }) => {
+    //
     const data = {
-       id: Math.floor(Math.random()*10000),
+      id:
+        Reducer.state.length === 0
+          ? Math.random().toString(36).substr(2, 9)
+          : Reducer.state[0].id,
+      // id: Math.floor(Math.random() * 10000),
       name: value.name,
       address: value.address,
-      birthDate: value.birthDate,
+      birthDate: moment(value.birthDate).format("l"),
       email: value.email,
       genderOption: value.genderOption,
       hobbyOption: value.hobbyOption,
     };
-    props.dispatch(addTodo(data));
-    resetForm({value:''});
 
+    props.dispatch(addTodo(data));
+    resetForm({ value: "" });
     // history.push({
     //   pathname: "/home",
     // });
   };
+  // debugger
+  // console.log("Reducer starting", Reducer.state);
+  // console.log("Reducer starting 0", Reducer.state[0]);
+  // {
+  //   Reducer &&
+  //     Reducer.state.length !== 0 &&
+  //     console.log("ccc", Reducer.state[0].name);
+  // }
   const validationSchema = Yup.object({
     name: Yup.string().required("Required !"),
     email: Yup.string().email("Invalid email format").required("Required !"),
@@ -68,55 +86,157 @@ const Singup = (props) => {
       >
         {(formik) => (
           <div className="">
+            {console.log("formik", formik)}
             <Form className="container regisformset  border border-light p-5">
               <p className="h4 mb-0 text-center">Sign Up</p>
-              <FormikControl
-                control="input"
-                placeholder="Full Name"
-                label="Name :"
-                className="form-control"
-                name="name"
-                // onChange={(e) => {
-                //   initialValues({name : e.target.value});
-                //   console.log(e);
-                // }}
-              />
-              <FormikControl
-                control="input"
-                placeholder="Email"
-                label="Email :"
-                className="form-control"
-                name="email"
-              />
-              <FormikControl
-                control="textarea"
-                placeholder="Address"
-                label="Address :"
-                className="form-control"
-                name="address"
-              />
-              <FormikControl
-                control="date"
-                placeholder="Birth Date"
-                label="Birth Date :"
-                className="form-control"
-                name="birthDate"
-                autoComplete="off"
-              />
-              <FormikControl
-                control="radio"
-                placeholder="Gender"
-                label="Gender :"
-                className="form-control"
-                name="genderOption"
-                options={genderOptions}
-              />
-              <FormikControl
-                control="checkbox"
-                label="Hobby"
-                name="hobbyOption"
-                options={checkBoxOptions}
-              />
+
+              {console.log("formik.values.birthDate", formik.values.birthDate)}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="input"
+                  placeholder="Full Name"
+                  label="Name :"
+                  className="form-control"
+                  name="name"
+                  value={
+                    formik.values.name
+                      ? formik.values.name
+                      : Reducer.state[0].name
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="input"
+                  placeholder="Full Name"
+                  label="Name :"
+                  className="form-control"
+                  name="name"
+                  value={formik.values.name}
+                />
+              )}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="input"
+                  placeholder="Email"
+                  label="Email :"
+                  className="form-control"
+                  name="email"
+                  value={
+                    formik.values.email
+                      ? formik.values.email
+                      : Reducer.state[0].email
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="input"
+                  placeholder="Email"
+                  label="Email :"
+                  className="form-control"
+                  name="email"
+                  value={formik.values.email}
+                />
+              )}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="textarea"
+                  placeholder="Address"
+                  label="Address :"
+                  className="form-control"
+                  name="address"
+                  value={
+                    formik.values.address
+                      ? formik.values.address
+                      : Reducer.state[0].address
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="textarea"
+                  placeholder="Address"
+                  label="Address :"
+                  className="form-control"
+                  name="address"
+                  value={formik.values.address}
+                />
+              )}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="date"
+                  placeholder="Birth Date"
+                  label="Birth Date :"
+                  className="form-control"
+                  name="birthDate"
+                  autoComplete="off"
+                  value={
+                    formik.values.birthDate
+                      ? formik.values.birthDate
+                      : Reducer.state[0].birthDate
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="date"
+                  placeholder="Birth Date"
+                  label="Birth Date :"
+                  className="form-control"
+                  name="birthDate"
+                  autoComplete="off"
+                  value={formik.values.birthDate}
+                />
+              )}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="radio"
+                  placeholder="Gender"
+                  label="Gender :"
+                  className="form-control"
+                  name="genderOption"
+                  options={genderOptions}
+                  value={
+                    formik.values.genderOption
+                      ? formik.values.genderOption
+                      : Reducer.state[0].genderOption
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="radio"
+                  placeholder="Gender"
+                  label="Gender :"
+                  className="form-control"
+                  name="genderOption"
+                  options={genderOptions}
+                  value={formik.values.genderOption}
+                />
+              )}
+
+              {Reducer && Reducer.state && Reducer.state[0] ? (
+                <FormikControl
+                  control="checkbox"
+                  label="Hobby"
+                  name="hobbyOption"
+                  options={checkBoxOptions}
+                  value={
+                    formik.values.hobbyOption
+                      ? formik.values.hobbyOption
+                      : Reducer.state[0].hobbyOption
+                  }
+                />
+              ) : (
+                <FormikControl
+                  control="checkbox"
+                  label="Hobby"
+                  name="hobbyOption"
+                  options={checkBoxOptions}
+                  value={formik.values.hobbyOption}
+                />
+              )}
 
               <button
                 className="btn btn-info btn-block  fontset my-4"

@@ -15,11 +15,11 @@ function Login() {
     email: "k@gmail.com",
     password: "123",
   };
-  localStorage.setItem('data',JSON.stringify(data))
   const initialValues = {
     email: "",
     password: "",
   };
+  
   const onSubmit = (value) => {
     console.log("submit email", value.email);
     console.log("apdi email", data.email);
@@ -30,17 +30,12 @@ function Login() {
         position: toast.POSITION.TOP_RIGHT,
         
       });
+      localStorage.setItem('token', JSON.stringify(data))
       setTimeout(() => {
         history.push({
           pathname: "/home",
         });
       }, 2000);
-      // setTimeout(() => {
-      //   console.log("setTimeout");
-      // }, 1000);
-      // setInterval(() => {
-      //   console.log("setInterval");
-      // }, 1000)
     } else {
       toast.error("Enter valid Email and Password", {
         position: toast.POSITION.TOP_RIGHT,
@@ -76,12 +71,14 @@ function Login() {
               placeholder="Email"
               className="form-control"
               name="email"
+              value={formik.values.email}
             />
             <FormikControl
               control="input"
               placeholder="Password"
               className="form-control mt--15 inputsett"
               name="password"
+              value={formik.values.password}
             />
 
             <button
@@ -91,13 +88,7 @@ function Login() {
             >
               Sign in
             </button>
-
-            <p className="fontsett text-center">
-              Not a member?
-              <Link className="ml-2" to="/home">
-                Singup
-              </Link>
-            </p>
+           
           </Form>
         )}
       </Formik>

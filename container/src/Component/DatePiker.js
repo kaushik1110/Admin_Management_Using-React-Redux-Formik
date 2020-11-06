@@ -6,13 +6,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import TextError from '../Common/TextError'
 
 const DatePiker = (props) => {
-    const { label, name, ...rest } = props  
+    const { label, name,  ...rest } = props  
     
     return (
         <div className='textset'> 
             <label className="sizetext">{label}</label>
             <div>
-            <Field name={name}>
+            <Field name={name} >
                 {
                     ({ form, field }) => {
                         const { setFieldValue } = form
@@ -22,6 +22,7 @@ const DatePiker = (props) => {
                                 {...field}
                                 {...rest}
                                 selected={value}
+                                value={rest.value ? rest.value : ""}
                                 onChange={val => setFieldValue(name, val)}
                             />
                         )
